@@ -2,7 +2,7 @@ Squad-2-ad-csharp-becomex-2
 
 Central de Erros
 
-Será utilizado .net core 3.1
+Será utilizado ASP.NET Core 3.1
 
 Objetivo
 
