@@ -11,6 +11,11 @@ namespace AwesomePotato.Services
         ErrorLogData FindById(int id);
         IList<ErrorLogData> FindByAplicationName(string name);
         IList<ErrorLogData> FindByToken(Guid token);
+        IList<ErrorLogData> FindByLevel(int level);
+        IList<ErrorLogData> FindByAplicationNameAndLevel(string name, int level);
+        IList<ErrorLogData> FindByAplicationNameAndToken(string name, Guid token);
+        IList<ErrorLogData> FindByTokenAndLevel(Guid token, int level);
+        IList<ErrorLogData> FindByAplicationNameAndTokenAndLevel(string name, Guid token, int level);
         ErrorLogData Save(ErrorLogData errorLogData);
     }
 }
