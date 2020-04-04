@@ -71,7 +71,7 @@ namespace AwesomePotato.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetData(int id)
+        public ActionResult<ErrorLogDataDTO> GetData(int id)
         {
             var result = errorLogDataService.FindById(id);
 
