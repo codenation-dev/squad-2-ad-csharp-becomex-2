@@ -36,6 +36,11 @@ namespace AwesomePotato.Services
             return context.ErrorLogData.Where(e => e.Aplication == name && e.Token == token && e.Level == level).ToList();
         }
 
+        public IList<ErrorLogData> FindByDateTime(DateTime startDate, DateTime endDate)
+        {
+            return context.ErrorLogData.Where(e => e.TimeStamp > startDate && e.TimeStamp < endDate).ToList();
+        }
+
         public ErrorLogData FindById(int id)
         {
             return context.ErrorLogData.Find(id);

@@ -16,6 +16,7 @@ namespace AwesomePotato.Services
         IList<ErrorLogData> FindByAplicationNameAndToken(string name, Guid token);
         IList<ErrorLogData> FindByTokenAndLevel(Guid token, int level);
         IList<ErrorLogData> FindByAplicationNameAndTokenAndLevel(string name, Guid token, int level);
+        IList<ErrorLogData> FindByDateTime(DateTime startDate, DateTime endDate);
         ErrorLogData Save(ErrorLogData errorLogData);
     }
 }

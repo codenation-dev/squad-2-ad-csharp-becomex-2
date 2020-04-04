@@ -117,6 +117,18 @@ namespace AwesomePotato.Controllers
                 return NoContent();
         }
 
+        [HttpGet]
+        [Route("{data_inicio}/{data_fim}")]
+        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByDateTime(DateTime startDate, DateTime endDate)
+        {
+            var result = errorLogDataService.FindByDateTime(startDate, endDate);
+
+            if (result.Count > 0)
+                return Ok(mapper.Map<ErrorLogDataDTO>(result));
+            else
+                return NoContent();
+        }
+
         [HttpPost]
         public ActionResult<ErrorLogDataDTO> Post([FromBody] ErrorLogDataDTO value)
         {
