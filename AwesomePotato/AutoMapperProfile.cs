@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AwesomePotato.Models;
+using AwesomePotato.DTOs;
 
 namespace AwesomePotato
 {
@@ -10,7 +12,7 @@ namespace AwesomePotato
     {
         public AutoMapperProfile()
         {
-
+            CreateMap<ErrorLogData, ErroLogDataDTO>().ReverseMap();
         }
     }
 }
