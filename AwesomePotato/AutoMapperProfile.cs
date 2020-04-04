@@ -12,7 +12,7 @@ namespace AwesomePotato
     {
         public AutoMapperProfile()
         {
-            CreateMap<ErrorLogData, ErroLogDataDTO>().ReverseMap();
+            CreateMap<ErrorLogData, ErrorLogDataDTO>().ReverseMap();
         }
     }
 }

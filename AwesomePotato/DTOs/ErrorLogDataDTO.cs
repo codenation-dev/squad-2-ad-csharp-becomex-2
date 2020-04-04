@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AwesomePotato.DTOs
 {
-    public class ErroLogDataDTO
+    public class ErrorLogDataDTO
     {
         public int Id { get; private set; }
         public Guid Token { get; set; }
