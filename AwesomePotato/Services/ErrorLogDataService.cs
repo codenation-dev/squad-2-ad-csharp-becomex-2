@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AwesomePotato.Services
 {
-    public class ErrorLogDataService : IErrorLogData
+    public class ErrorLogDataService : IErrorLogDataService
     {
         private readonly AwesomePotatoContext context;
 

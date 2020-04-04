@@ -6,7 +6,7 @@ using AwesomePotato.Models;
 
 namespace AwesomePotato.Services
 {
-    public interface IErrorLogData
+    public interface IErrorLogDataService
     {
         ErrorLogData FindById(int id);
         IList<ErrorLogData> FindByAplicationName(string name);
