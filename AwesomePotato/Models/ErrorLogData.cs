@@ -12,7 +12,7 @@ namespace AwesomePotato.Models
         [Key]
         public int Id { get; private set; }
         public Guid Token { get; set; }
-        public int Level { get; set; }
+        public int Level { get; set; } = 0;
         [StringLength(100)]
         public string Aplication { get; set; }
         [StringLength(300)]
