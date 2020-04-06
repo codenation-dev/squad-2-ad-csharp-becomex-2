@@ -8,6 +8,11 @@ namespace AwesomePotato.Models
 {
     public class AwesomePotatoContext : DbContext
     {
+        public AwesomePotatoContext(DbContextOptions<AwesomePotatoContext> builder) : base(builder)
+        {
+
+        }
+
         public DbSet<ErrorLogData> ErrorLogData { get; set; }
     }
 }
