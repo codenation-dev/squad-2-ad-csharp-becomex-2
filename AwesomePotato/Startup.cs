@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomePotato
 {
@@ -28,9 +29,10 @@ namespace AwesomePotato
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AwesomePotatoContext>();            
+            services.AddDbContext<AwesomePotatoContext>(x => x.UseSqlServer(Configuration.GetConnectionString("default")));
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IErrorLogDataService, ErrorLogDataService>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +47,7 @@ namespace AwesomePotato
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
