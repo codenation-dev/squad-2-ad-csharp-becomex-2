@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace AwesomePotato.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ErrorLogDataController : ControllerBase
     {
         private readonly IErrorLogDataService errorLogDataService;
@@ -22,10 +24,10 @@ namespace AwesomePotato.Controllers
         }
 
         [HttpGet]
-        [Route("{aplicacao}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplication(string application)
+        [Route("listar-aplicacao/{aplicacao?}")]
+        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplication(string aplicacao)
         {
-            var result = errorLogDataService.FindByAplicationName(application);
+            var result = errorLogDataService.FindByAplicationName(aplicacao);
 
             if (result.Count > 0)
                 return Ok(mapper.Map<ErrorLogDataDTO>(result));
