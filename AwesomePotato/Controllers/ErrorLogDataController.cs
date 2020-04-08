@@ -24,10 +24,15 @@ namespace AwesomePotato.Controllers
         }
 
         [HttpGet]
-        [Route("listar-aplicacao/{aplicacao?}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplication(string aplicacao)
+        [Route("listar-aplicacao")]
+        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetFilteredData(
+            [FromQuery] string aplicacao,
+            [FromQuery] string token,
+            [FromQuery] int? nivel,
+            [FromQuery] string dataInicio,
+            [FromQuery] string dataFim)
         {
-            var result = errorLogDataService.FindByAplicationName(aplicacao);
+            var result = errorLogDataService.FilterByApplicationTokenLevelDate(aplicacao, token, nivel, dataInicio, dataFim);
 
             if (result.Count > 0)
                 return Ok(mapper.Map<ErrorLogDataDTO>(result));
@@ -35,97 +40,14 @@ namespace AwesomePotato.Controllers
                 return NoContent();
         }
 
-        [HttpGet]
-        [Route("{aplicacao}/{nivel}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplicationAndLevel(string application, int level)
-        {
-            var result = errorLogDataService.FindByAplicationNameAndLevel(application, level);
-
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
 
         [HttpGet]
-        [Route("{aplicacao}/{token}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplicationAndToken(string application, Guid token)
-        {
-            var result = errorLogDataService.FindByAplicationNameAndToken(application, token);
-
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{aplicacao}/{token}/{nivel}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByApplicationAndTokenAndLevel(string application, Guid token, int level)
-        {
-            var result = errorLogDataService.FindByAplicationNameAndTokenAndLevel(application, token, level);
-
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public ActionResult<ErrorLogDataDTO> GetData(int id)
+        [Route("listar")]
+        public ActionResult<ErrorLogDataDTO> GetData([FromQuery] int id)
         {
             var result = errorLogDataService.FindById(id);
 
             if (result != null)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{nivel}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByLevel(int level)
-        {
-            var result = errorLogDataService.FindByLevel(level);
-
-            if (result.Count>0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{token}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByToken(Guid token)
-        {
-            var result = errorLogDataService.FindByToken(token);
-
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{token}/{nivel}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByTokenAndLevel(Guid token, int level)
-        {
-            var result = errorLogDataService.FindByTokenAndLevel(token, level);
-
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
-            else
-                return NoContent();
-        }
-
-        [HttpGet]
-        [Route("{data_inicio}/{data_fim}")]
-        public ActionResult<IEnumerable<ErrorLogDataDTO>> GetDataByDateTime(DateTime startDate, DateTime endDate)
-        {
-            var result = errorLogDataService.FindByDateTime(startDate, endDate);
-
-            if (result.Count > 0)
                 return Ok(mapper.Map<ErrorLogDataDTO>(result));
             else
                 return NoContent();
