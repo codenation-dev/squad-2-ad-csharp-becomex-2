@@ -16,29 +16,50 @@ namespace AwesomePotato.Services
         {
             this.context = context;
         }
-        public IList<ErrorLogData> FindByAplicationName(string name)
+
+        public IList<ErrorLogData> FilterByApplication(IList<ErrorLogData> logDatas, string application)
         {
-            return context.ErrorLogData.Where(e => e.Aplication == name).ToList();
+            if (!string.IsNullOrEmpty(application))
+                logDatas.Where(ld => ld.Aplication == application);
+
+            return logDatas;
         }
 
-        public IList<ErrorLogData> FindByAplicationNameAndLevel(string name, int level)
+        public IList<ErrorLogData> FilterByDate(IList<ErrorLogData> logDatas, string startDate, string endDate)
         {
-            return context.ErrorLogData.Where(e => e.Aplication == name && e.Level == level).ToList();
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate)
+                && DateTime.TryParse(startDate, out DateTime startDatetime) && DateTime.TryParse(endDate, out DateTime endDatetime))
+                logDatas.Where(ld => ld.TimeStamp > startDatetime && ld.TimeStamp < endDatetime);
+
+            return logDatas;
         }
 
-        public IList<ErrorLogData> FindByAplicationNameAndToken(string name, Guid token)
+        public IList<ErrorLogData> FilterByLevel(IList<ErrorLogData> logDatas, int? level)
         {
-            return context.ErrorLogData.Where(e => e.Aplication == name && e.Token == token).ToList();
+            if (level.HasValue)
+                logDatas.Where(ld => ld.Level == level);
+
+            return logDatas;
         }
 
-        public IList<ErrorLogData> FindByAplicationNameAndTokenAndLevel(string name, Guid token, int level)
+        public IList<ErrorLogData> FilterByToken(IList<ErrorLogData> logDatas, string token)
         {
-            return context.ErrorLogData.Where(e => e.Aplication == name && e.Token == token && e.Level == level).ToList();
+            if (!string.IsNullOrEmpty(token) && Guid.TryParse(token, out Guid guid))
+                logDatas.Where(ld => ld.Token == guid);
+
+            return logDatas;
         }
 
-        public IList<ErrorLogData> FindByDateTime(DateTime startDate, DateTime endDate)
+        public IList<ErrorLogData> FilterByApplicationTokenLevelDate(string applicationName, string token, int? level, string startDate, string endDate)
         {
-            return context.ErrorLogData.Where(e => e.TimeStamp > startDate && e.TimeStamp < endDate).ToList();
+            IList<ErrorLogData> data = GetAll();
+
+            data = FilterByApplication(data, applicationName);
+            data = FilterByToken(data, token);
+            data = FilterByLevel(data, level);
+            data = FilterByDate(data, startDate, endDate);
+
+            return data;
         }
 
         public ErrorLogData FindById(int id)
@@ -46,19 +67,9 @@ namespace AwesomePotato.Services
             return context.ErrorLogData.Find(id);
         }
 
-        public IList<ErrorLogData> FindByLevel(int level)
+        public IList<ErrorLogData> GetAll()
         {
-            return context.ErrorLogData.Where(e => e.Level == level).ToList();
-        }
-
-        public IList<ErrorLogData> FindByToken(Guid token)
-        {
-            return context.ErrorLogData.Where(e => e.Token == token).ToList();
-        }
-
-        public IList<ErrorLogData> FindByTokenAndLevel(Guid token, int level)
-        {
-            return context.ErrorLogData.Where(e => e.Token == token && e.Level == level).ToList();
+            return context.ErrorLogData.ToList();
         }
 
         public ErrorLogData Save(ErrorLogData errorLogData)
