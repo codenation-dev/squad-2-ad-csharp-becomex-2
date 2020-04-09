@@ -20,7 +20,7 @@ namespace AwesomePotato.Services
         public IList<ErrorLogData> FilterByApplication(IList<ErrorLogData> logDatas, string application)
         {
             if (!string.IsNullOrEmpty(application))
-                logDatas.Where(ld => ld.Aplication == application);
+                logDatas.Where(ld => ld.Application == application);
 
             return logDatas;
         }

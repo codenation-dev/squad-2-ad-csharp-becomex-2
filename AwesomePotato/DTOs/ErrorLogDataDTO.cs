@@ -9,9 +9,9 @@ namespace AwesomePotato.DTOs
     public class ErrorLogDataDTO
     {
         public int Id { get; private set; }
-        public Guid Token { get; set; }
-        public int Level { get; set; }
-        public string Aplication { get; set; }
+        public Guid? Token { get; set; }
+        public int? Level { get; set; }
+        public string Application { get; set; }
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
