@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 1,
+    "Token": "7fdf0999-5746-4802-a6c4-0b76f596b0ed",
+    "Level": 1,
+    "Application": "Application #1",
+    "Title": null,
+    "Content": "This is some content for the #1 error",
+    "TimeStamp": "2019-05-13 00:58:05"
+  },
+  {
+    "Id": 2,
+    "Token": "926aec48-9083-4f73-833c-71abbc268372",
+    "Level": 3,
+    "Application": "Application #2",
+    "Title": null,
+    "Content": "This is some content for the #2 error",
+    "TimeStamp": "2019-06-18 10:47:40"
+  },
+  {
+    "Id": 3,
+    "Token": "71893802-275c-4948-bf27-46107b1f4878",
+    "Level": null,
+    "Application": "Application #3",
+    "Title": "Error #3",
+    "Content": "This is some content for the #3 error",
+    "TimeStamp": "2018-11-10 09:45:27"
+  },
+  {
+    "Id": 4,
+    "Token": null,
+    "Level": null,
+    "Application": null,
+    "Title": null,
+    "Content": "This is some content for the #4 error",
+    "TimeStamp": "2018-11-10 09:45:27"
+  }
+]
