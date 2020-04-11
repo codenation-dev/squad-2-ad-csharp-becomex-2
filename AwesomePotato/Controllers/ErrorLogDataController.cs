@@ -56,10 +56,11 @@ namespace AwesomePotato.Controllers
         [HttpPost]
         public ActionResult<ErrorLogDataDTO> Post([FromBody] ErrorLogDataDTO value)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || value == null)
                 return BadRequest(ModelState);
             else
             {
+                value.TimeStamp = DateTime.Now;
                 ErrorLogData data = mapper.Map<ErrorLogData>(value);
                 errorLogDataService.Save(data);
                 ErrorLogDataDTO userDTO = mapper.Map<ErrorLogDataDTO>(data);
