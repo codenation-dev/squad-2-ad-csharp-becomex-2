@@ -24,7 +24,7 @@ namespace AwesomePotato.Controllers
         }
 
         [HttpGet]
-        [Route("listar-aplicacao")]
+        [Route("listar-erros")]
         public ActionResult<IEnumerable<ErrorLogDataDTO>> GetFilteredData(
             [FromQuery] string aplicacao,
             [FromQuery] string token,
