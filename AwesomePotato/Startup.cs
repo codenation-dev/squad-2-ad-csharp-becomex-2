@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using AwesomePotato.Infraestructure;
 
 namespace AwesomePotato
 {
@@ -30,6 +31,7 @@ namespace AwesomePotato
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AwesomePotatoContext>(x => x.UseSqlServer(Configuration.GetConnectionString("default")));
+            IdentityConfiguration.ConfigureServices(services, Configuration);
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IErrorLogDataService, ErrorLogDataService>();
             services.AddControllers();
