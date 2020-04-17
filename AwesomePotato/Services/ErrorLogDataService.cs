@@ -20,7 +20,7 @@ namespace AwesomePotato.Services
         public IList<ErrorLogData> FilterByApplication(IList<ErrorLogData> logDatas, string application)
         {
             if (!string.IsNullOrEmpty(application))
-                logDatas.Where(ld => ld.Application == application);
+                logDatas = logDatas.Where(ld => ld.Application == application).ToList();
 
             return logDatas;
         }
@@ -29,7 +29,7 @@ namespace AwesomePotato.Services
         {
             if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate)
                 && DateTime.TryParse(startDate, out DateTime startDatetime) && DateTime.TryParse(endDate, out DateTime endDatetime))
-                logDatas.Where(ld => ld.TimeStamp > startDatetime && ld.TimeStamp < endDatetime);
+                logDatas = logDatas.Where(ld => ld.TimeStamp > startDatetime && ld.TimeStamp < endDatetime).ToList();
 
             return logDatas;
         }
@@ -37,25 +37,16 @@ namespace AwesomePotato.Services
         public IList<ErrorLogData> FilterByLevel(IList<ErrorLogData> logDatas, int? level)
         {
             if (level.HasValue)
-                logDatas.Where(ld => ld.Level == level);
+                logDatas = logDatas.Where(ld => ld.Level == level).ToList();
 
             return logDatas;
         }
 
-        public IList<ErrorLogData> FilterByToken(IList<ErrorLogData> logDatas, string token)
-        {
-            if (!string.IsNullOrEmpty(token) && Guid.TryParse(token, out Guid guid))
-                logDatas.Where(ld => ld.Token == guid);
-
-            return logDatas;
-        }
-
-        public IList<ErrorLogData> FilterByApplicationTokenLevelDate(string applicationName, string token, int? level, string startDate, string endDate)
+        public IList<ErrorLogData> FilterByApplicationLevelDate(string applicationName, int? level, string startDate, string endDate)
         {
             IList<ErrorLogData> data = GetAll();
 
             data = FilterByApplication(data, applicationName);
-            data = FilterByToken(data, token);
             data = FilterByLevel(data, level);
             data = FilterByDate(data, startDate, endDate);
 
