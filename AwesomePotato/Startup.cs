@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using AwesomePotato.Infraestructure;
+using System.Reflection;
 
 namespace AwesomePotato
 {
@@ -33,6 +34,7 @@ namespace AwesomePotato
             IdentityConfiguration.ConfigureServices(services, Configuration);
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IErrorLogDataService, ErrorLogDataService>();
+            services.AddScoped<IUserManagementService, UserManagementService>();
             services.AddControllers();
         }
 
