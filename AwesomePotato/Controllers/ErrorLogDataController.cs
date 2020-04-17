@@ -11,7 +11,6 @@ namespace AwesomePotato.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(Roles = "Usuario")]
     public class ErrorLogDataController : ControllerBase
     {
         private readonly IErrorLogDataService errorLogDataService;
@@ -23,24 +22,32 @@ namespace AwesomePotato.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "Usuario")]
         [HttpGet]
         [Route("listar-erros")]
         public ActionResult<IEnumerable<ErrorLogDataDTO>> GetFilteredData(
             [FromQuery] string aplicacao,
-            [FromQuery] string token,
             [FromQuery] int? nivel,
             [FromQuery] string dataInicio,
             [FromQuery] string dataFim)
         {
-            var result = errorLogDataService.FilterByApplicationTokenLevelDate(aplicacao, token, nivel, dataInicio, dataFim);
+            IList<ErrorLogData> errorLogDatas = errorLogDataService.FilterByApplicationLevelDate(aplicacao, nivel, dataInicio, dataFim);
+            IList<ErrorLogDataDTO> dataDTOs = new List<ErrorLogDataDTO>();
 
-            if (result.Count > 0)
-                return Ok(mapper.Map<ErrorLogDataDTO>(result));
+            if (errorLogDatas.Count > 0)
+            {
+                foreach(var erroDTO in errorLogDatas)
+                {
+                    dataDTOs.Add(mapper.Map<ErrorLogDataDTO>(erroDTO));
+                }
+
+                return Ok(dataDTOs);
+            }
             else
                 return NoContent();
         }
 
-
+        [Authorize(Roles = "Usuario")]
         [HttpGet]
         [Route("listar")]
         public ActionResult<ErrorLogDataDTO> GetData([FromQuery] int id)
