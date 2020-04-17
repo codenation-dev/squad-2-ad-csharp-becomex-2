@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AwesomePotato.Services
 {
-    public class UserManagementService
+    public class UserManagementService : IUserManagementService
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
