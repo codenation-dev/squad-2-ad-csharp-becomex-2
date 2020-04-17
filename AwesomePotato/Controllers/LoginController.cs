@@ -11,10 +11,10 @@ namespace AwesomePotato.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly UserManagementService _userManagementService;
+        private readonly IUserManagementService _userManagementService;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public LoginController(UserManagementService userManagementService,
+        public LoginController(IUserManagementService userManagementService,
                                 SignInManager<IdentityUser> signInManager)
         {
             _signInManager = signInManager;
@@ -28,7 +28,7 @@ namespace AwesomePotato.Controllers
 
             var result = await _userManagementService.Create(viewModel).ConfigureAwait(true);
 
-            if (!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) return BadRequest(result.ToString());
 
             viewModel.Senha = string.Empty;
             viewModel.ConfirmaSenha = string.Empty;
@@ -48,7 +48,7 @@ namespace AwesomePotato.Controllers
                 return BadRequest("Usuário ou senha inválido.");
             }
 
-            return Ok(_userManagementService.GerarJWT(viewModel.Email));
+            return Ok(await _userManagementService.GerarJWT(viewModel.Email).ConfigureAwait(true));
         }
     }
 }
