@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace AwesomePotato.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class LoginController : ControllerBase
     {
         private readonly UserManagementService _userManagementService;
