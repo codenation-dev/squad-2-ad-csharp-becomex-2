@@ -2,16 +2,16 @@
 using AwesomePotato.DTOs;
 using AwesomePotato.Models;
 using AwesomePotato.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AwesomePotato.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "Usuario")]
     public class ErrorLogDataController : ControllerBase
     {
         private readonly IErrorLogDataService errorLogDataService;
