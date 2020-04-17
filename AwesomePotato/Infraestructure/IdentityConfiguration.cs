@@ -9,7 +9,7 @@ using System.Text;
 
 namespace AwesomePotato.Infraestructure
 {
-    public static class IdentityConfiguration
+    public class IdentityConfiguration
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
