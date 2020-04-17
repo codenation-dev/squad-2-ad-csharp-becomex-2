@@ -29,7 +29,7 @@ namespace AwesomePotato.Controllers
                 Name = roleModel.Nome
             };
 
-            var roleResult = await _roleManager.CreateAsync(role);
+            var roleResult = await _roleManager.CreateAsync(role).ConfigureAwait(true);
 
             if (!roleResult.Succeeded)
                 return BadRequest(roleResult.Errors);
